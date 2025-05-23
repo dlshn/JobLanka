@@ -1,10 +1,23 @@
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Home from "./Pages/Home";
+import About from "./Pages/About";
+import Contact from "./Pages/Contact";
+import Navbar from "./Components/Navbar";
+import Footer from "./Components/Footer";
+
+
 function App() {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <h1 className="text-4xl text-blue-600 font-bold">
-        🎉 Welcome to JobLanka
-      </h1>
-    </div>
+    
+    <Router>
+      <Navbar/>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
+      </Routes>
+      <Footer/>
+    </Router>
   );
 }
 
