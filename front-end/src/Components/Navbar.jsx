@@ -37,23 +37,54 @@ const Navbar = () => {
         </div>
 
         {isOpen && (
-          <div className="absolute top-16 left-0 w-full bg-yellow-400 shadow-lg z-10">
+          <div className="absolute top-16 left-0 w-full bg-yellow-400 shadow-lg z-50 border-t border-black/10">
             <div className="flex flex-col items-center space-y-4 p-4 font-bold">
-              <Link to="/" className="hover:underline" onClick={()=> setIsOpen(false)}>Home</Link>
-              <Link to="/jobs" className="hover:underline" onClick={()=> setIsOpen(false)}>Jobs</Link>
-              <Link to="/about" className="hover:underline" onClick={()=> setIsOpen(false)}>About</Link>
-              <Link to="/contact" className="hover:underline" onClick={()=> setIsOpen(false)}>Contact</Link>
-              <hr className="border-t border-black w-full" />
-              <Link to="/login" className="bg-black text-yellow-400 px-4 py-1 rounded hover:bg-gray-800" onClick={()=> setIsOpen(false)}>
+              <Link 
+                to="/" 
+                className="hover:underline hover:text-gray-800 transition-colors duration-200" 
+                onClick={() => setIsOpen(false)}
+              >
+                Home
+              </Link>
+              <Link 
+                to="/jobs" 
+                className="hover:underline hover:text-gray-800 transition-colors duration-200" 
+                onClick={() => setIsOpen(false)}
+              >
+                Jobs
+              </Link>
+              <Link 
+                to="/about" 
+                className="hover:underline hover:text-gray-800 transition-colors duration-200" 
+                onClick={() => setIsOpen(false)}
+              >
+                About
+              </Link>
+              <Link 
+                to="/contact" 
+                className="hover:underline hover:text-gray-800 transition-colors duration-200" 
+                onClick={() => setIsOpen(false)}
+              >
+                Contact
+              </Link>
+              <hr className="border-t border-black/20 w-full" />
+              <Link 
+                to="/login" 
+                className="bg-black text-yellow-400 px-4 py-2 rounded hover:bg-gray-800 transition-all duration-200 hover:shadow-md" 
+                onClick={() => setIsOpen(false)}
+              >
                 Login
               </Link>
-              <Link to="/signup" className="border border-black px-4 py-1 rounded hover:bg-black hover:text-yellow-400" onClick={()=> setIsOpen(false)}>
+              <Link 
+                to="/signup" 
+                className="border border-black px-4 py-2 rounded hover:bg-black hover:text-yellow-400 transition-all duration-200 hover:shadow-md" 
+                onClick={() => setIsOpen(false)}
+              >
                 Sign Up
               </Link>
             </div>
           </div>
-        )
-        }
+        )}
       </div>
     </nav>
   );
