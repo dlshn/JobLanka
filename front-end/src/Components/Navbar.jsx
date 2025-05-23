@@ -1,9 +1,62 @@
-import React from 'react'
+// src/components/Navbar.jsx
+import React from "react";
+import { Link } from "react-router-dom";
+import { useState } from "react";
 
 const Navbar = () => {
+    const [isOpen, setIsOpen] = useState(false);
   return (
-    <div>Navbar</div>
-  )
-}
+    <nav className="bg-yellow-400 text-black shadow-md">
+      <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+        {/* Logo */}
+        <Link to="/" className="text-2xl font-bold">
+          JobLanka
+        </Link>
 
-export default Navbar
+        {/* Navigation Links */}
+        <div className="hidden md:flex space-x-6 font-bold">
+          <Link to="/" className="hover:underline ">Home</Link>
+          <Link to="/jobs" className="hover:underline">Jobs</Link>
+          <Link to="/about" className="hover:underline">About</Link>
+          <Link to="/contact" className="hover:underline">Contact</Link>
+        </div>
+
+        {/* Login / Signup */}
+        <div className="hidden md:flex space-x-4">
+          <Link to="/login" className="bg-black text-yellow-400 px-4 py-1 rounded hover:bg-gray-800">
+            Login
+          </Link>
+          <Link to="/signup" className="border border-black px-4 py-1 rounded hover:bg-black hover:text-yellow-400">
+            Sign Up
+          </Link>
+        </div>
+
+        {/* Mobile Menu Placeholder (optional) */}
+        <div className="md:hidden">
+          <button className="text-black focus:outline-none" onClick={()=> setIsOpen(!isOpen)}>☰</button>
+        </div>
+
+        {isOpen && (
+          <div className="absolute top-16 left-0 w-full bg-yellow-400 shadow-lg z-10">
+            <div className="flex flex-col items-center space-y-4 p-4 font-bold">
+              <Link to="/" className="hover:underline" onClick={()=> setIsOpen(false)}>Home</Link>
+              <Link to="/jobs" className="hover:underline" onClick={()=> setIsOpen(false)}>Jobs</Link>
+              <Link to="/about" className="hover:underline" onClick={()=> setIsOpen(false)}>About</Link>
+              <Link to="/contact" className="hover:underline" onClick={()=> setIsOpen(false)}>Contact</Link>
+              <hr className="border-t border-black w-full" />
+              <Link to="/login" className="bg-black text-yellow-400 px-4 py-1 rounded hover:bg-gray-800" onClick={()=> setIsOpen(false)}>
+                Login
+              </Link>
+              <Link to="/signup" className="border border-black px-4 py-1 rounded hover:bg-black hover:text-yellow-400" onClick={()=> setIsOpen(false)}>
+                Sign Up
+              </Link>
+            </div>
+          </div>
+        )
+        }
+      </div>
+    </nav>
+  );
+};
+
+export default Navbar;

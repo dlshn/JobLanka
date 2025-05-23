@@ -25,14 +25,14 @@ const Home = () => {
 
   return (
     <div className="min-h-screen bg-white">
-      <header className="bg-yellow-400 text-white py-6 shadow">
+      <header className="bg-yellow-400 text-white py-6 shadow mt-2">
         <h1 className="text-2xl md:text-4xl lg:text-6xl font-bold text-black text-center">JobLanka</h1>
         <p className="text-center mt-1 text-black text-base md:text-xl lg:text-2xl ">Find your dream job in Sri Lanka 🇱🇰</p>
 
         <div className='flex sm:flex-row flex-col justify-center items-center mt-4 p-4 gap-4'>
             <input
             type="text"
-            placeholder="Search by job title..."
+            placeholder="Search your job..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             className="w-full lg:w-1/2 px-4 py-2 border rounded-lg shadow-sm focus:outline-none "
