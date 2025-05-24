@@ -20,9 +20,10 @@ const Footer = () => {
           <Link to="/about" className="hover:underline">About</Link>
           <Link to="/contact" className="hover:underline">Contact</Link>
         </div>
-        <hr className="border-t border-yellow-400 w-full" />
+        
         {/* Right Side: Note */}
         <div className="md:gap-6 sm: flex flex-col items-center md:items-start">
+        <hr className="border-t border-yellow-400 w-full mb-2 mt-0 block md:hidden" />
           <p className="text-sm font-sm">070 5570433</p>
           <p>Colombo, Sri Lanka.</p>
         </div>
