@@ -12,7 +12,7 @@ const Home = () => {
     useEffect(() => {
         const fetchJobs = async () => {
             try {
-                const response = await axios.get("http://localhost:5000/api/jobs/getAll");
+                const response = await axios.get(`${proccess.env.Back_End_Url}/api/jobs/getAll`);
                 const data = await response.json();
                 setJobs(data);
             } catch (error) {
@@ -66,8 +66,6 @@ const Home = () => {
                 <p className="text-gray-600 mt-2">{job.description}</p>
             </div>
           ))}
-          
-
         </div>
       </main>
     </div>

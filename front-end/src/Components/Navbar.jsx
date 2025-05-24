@@ -19,6 +19,7 @@ const Navbar = () => {
           <Link to="/jobs" className="hover:underline">Jobs</Link>
           <Link to="/about" className="hover:underline">About</Link>
           <Link to="/contact" className="hover:underline">Contact</Link>
+          <Link to="/addjob" className="hover:underline">Post a Job</Link>
         </div>
 
         {/* Login / Signup */}
