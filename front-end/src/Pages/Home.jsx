@@ -12,14 +12,13 @@ const Home = () => {
     useEffect(() => {
         const fetchJobs = async () => {
             try {
-                const response = await axios.get(`${proccess.env.REACT_APP_API_BASE_URL}/api/jobs/getAll`);
-                const data = await response.json();
-                setJobs(data);
+                const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/jobs/getAll`);
+                setJobs(response.data);
+
             } catch (error) {
                 console.error("Error fetching jobs:", error);
             }
         };
-
         fetchJobs();
     }, []);
 
@@ -56,7 +55,7 @@ const Home = () => {
         <div className="max-w-4xl mx-auto grid gap-4 grid-cols- md:grid-cols-3 lg:grid-cols-3">
           {/* Sample Job Card */}
           {jobs.map((job,index) => (
-            <div className="bg-gray-100 p-6 rounded-xl shadow-md hover:shadow-lg transition key={index}>">
+            <div className="bg-gray-100 p-6 rounded-xl shadow-md hover:shadow-lg transition " key={index}>
                 <img
                 alt={job.title}
                 src={job.img_url}

@@ -26,8 +26,7 @@ const { title, company, location, salary, description, email } = form;
 
   const handleSubmit = async (e)  => {
     e.preventDefault();
-    console.log(form);
-        // Add your POST API call here
+    // Add your POST API call here
     try{
     setIsLoading(true);
     const formData = new FormData();
@@ -49,9 +48,11 @@ const { title, company, location, salary, description, email } = form;
       salary,
       description,
       email,
-      img_url:imageUrl // Use the uploaded image URL
-    
+      img_url:imageUrl // Use the uploaded image URL    
     });
+    console.log(response.data);
+    alert("Job posted successfully!");
+    navigate("/"); 
 
     }catch (error) {
       console.error("Error uploading image or creating job:", error);
