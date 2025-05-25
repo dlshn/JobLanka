@@ -19,16 +19,12 @@ const Navbar = () => {
           <Link to="/jobs" className="hover:underline">Jobs</Link>
           <Link to="/about" className="hover:underline">About</Link>
           <Link to="/contact" className="hover:underline">Contact</Link>
-          <Link to="/addjob" className="hover:underline">Post a Job</Link>
         </div>
 
         {/* Login / Signup */}
         <div className="hidden md:flex space-x-4">
           <Link to="/login" className="bg-black text-yellow-400 px-4 py-1 rounded hover:bg-gray-800">
             Login
-          </Link>
-          <Link to="/signup" className="border border-black px-4 py-1 rounded hover:bg-black hover:text-yellow-400">
-            Sign Up
           </Link>
         </div>
 
@@ -75,13 +71,6 @@ const Navbar = () => {
                 onClick={() => setIsOpen(false)}
               >
                 Login
-              </Link>
-              <Link 
-                to="/signup" 
-                className="border border-black px-4 py-2 rounded hover:bg-black hover:text-yellow-400 transition-all duration-200 hover:shadow-md" 
-                onClick={() => setIsOpen(false)}
-              >
-                Sign Up
               </Link>
             </div>
           </div>
