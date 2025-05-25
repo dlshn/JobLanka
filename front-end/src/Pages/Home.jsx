@@ -34,16 +34,20 @@ const Home = () => {
             placeholder="Search your job..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full lg:w-1/2 px-4 py-2 border rounded-lg shadow-sm focus:outline-none "
+            className="w-full lg:w-1/2 px-4 py-2 border rounded-lg shadow-sm focus:outline-none text-black"
             />
             <select
             value={category}
             onChange={(e) => setCategory(e.target.value)}
             className="w-full lg:w-1/2 px-4 py-2 border rounded-lg shadow-sm focus:outline-none text-black "
             >
-            <option value="">All Categories</option>
+            <option value="">Select a category</option>
             <option value="IT">IT</option>
             <option value="Marketing">Marketing</option>
+            <option value="Finance">Finance</option>
+            <option value="Education">Education</option>
+            <option value="Healthcare">Healthcare</option>
+            <option value="Other">Other</option>
             </select>
         </div>
 
@@ -52,19 +56,63 @@ const Home = () => {
       </header>
 
       <main className="p-4">
-        <div className="max-w-4xl mx-auto grid gap-4 grid-cols- md:grid-cols-3 lg:grid-cols-3">
+        <div className="max-w-6xl mx-auto grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
           {/* Sample Job Card */}
-          {jobs.map((job,index) => (
-            <div className="bg-gray-100 p-6 rounded-xl shadow-md hover:shadow-lg transition " key={index}>
-                <img
-                alt={job.title}
-                src={job.img_url}
-                className="w-full h-40 object-cover rounded-md mb-4"
-                />
-                <h2 className="text-xl font-semibold text-gray-800">{job.title}</h2>
-                <p className="text-gray-600 mt-2">{job.description}</p>
+          {jobs
+  .filter((job) => {
+    const searchLower = search.toLowerCase();
+    const categoryLower = category.toLowerCase();
+
+    const matchesSearch = job.title.toLowerCase().includes(searchLower);
+    const matchesCategory = category === "" || job.category.toLowerCase() === categoryLower;
+
+    return matchesSearch && matchesCategory;
+  })
+  .map((job, index) => (
+        <div
+          className="bg-gradient-to-br from-white to-gray-50 border-2 border-transparent hover:border-yellow-400 p-6 rounded-2xl shadow-lg hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 ease-in-out group cursor-pointer"
+          key={index}
+        >
+          <div className="relative overflow-hidden rounded-xl mb-6">
+            <img
+              alt={job.title}
+              src={job.img_url}
+              className="w-full h-48 object-cover rounded-xl group-hover:scale-110 transition-transform duration-300"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+          </div>
+
+          <div className="space-y-3">
+            <h2 className="text-xl font-bold text-gray-900 group-hover:text-yellow-600 transition-colors duration-300 line-clamp-2">
+              {job.title}
+            </h2>
+
+            <p className="text-gray-700 text-sm leading-relaxed line-clamp-3">{job.description}</p>
+
+            <div className="flex items-center space-x-2">
+              <div className="w-2 h-2 bg-yellow-400 rounded-full"></div>
+              <p className="text-gray-800 font-medium text-sm">{job.company}</p>
             </div>
-          ))}
+
+            <div className="flex items-center space-x-2">
+              <div className="w-2 h-2 bg-black rounded-full"></div>
+              <p className="text-gray-700 text-sm">{job.location}</p>
+            </div>
+
+            <div className="flex items-center justify-between pt-3 border-t border-gray-200">
+              <div className="flex items-center space-x-2">
+                <span className="text-lg font-bold text-yellow-600">
+                  {job.salary ? `LKR ${job.salary}` : "Negotiable"}
+                </span>
+              </div>
+              <div className="text-xs text-gray-500 bg-gray-100 px-3 py-1 rounded-full">
+                {new Date(job.createdAt).toLocaleDateString()}
+              </div>
+            </div>
+          </div>
+        </div>
+    ))}
+
         </div>
       </main>
     </div>

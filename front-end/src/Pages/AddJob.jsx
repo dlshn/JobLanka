@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const AddJob = () => {
   const [form, setForm] = useState({
@@ -9,12 +9,14 @@ const AddJob = () => {
     location: "",
     salary: "",
     description: "",
-    email: ""
+    email: "",
+    category: ""
   });
-
 const [imageFile, setImageFile] = useState(null);
 const [isLoading, setIsLoading] = useState(false);
-const { title, company, location, salary, description, email } = form;
+
+const { title, company, location, salary, description, email, category } = form;
+const navigate = useNavigate();
 
   const handleImageChange = (e) => {
     setImageFile(e.target.files[0]); // Just store file, don't upload yet 
@@ -29,6 +31,7 @@ const { title, company, location, salary, description, email } = form;
     // Add your POST API call here
     try{
     setIsLoading(true);
+
     const formData = new FormData();
     formData.append("image", imageFile);
 
@@ -48,10 +51,23 @@ const { title, company, location, salary, description, email } = form;
       salary,
       description,
       email,
-      img_url:imageUrl // Use the uploaded image URL    
+      category, // <- Add this line
+      img_url: imageUrl
     });
+
     console.log(response.data);
     alert("Job posted successfully!");
+    Navigate("/"); // Redirect to home page after successful job posting
+    setForm({
+      title: "",
+      company: "",
+      location: "",
+      salary: "",
+      description: "",
+      email: "",
+      category: "" // Reset the form
+    });
+    setImageFile(null);
     navigate("/"); 
 
     }catch (error) {
@@ -60,15 +76,6 @@ const { title, company, location, salary, description, email } = form;
 
     }finally {
       setIsLoading(false);
-      setImageFile(); // Reset the image file after submission 
-      setForm({
-        title: "",
-        company: "",
-        location: "",
-        salary: "",
-        description: "",
-        email: ""
-      });
     }
 
   }
@@ -171,6 +178,26 @@ const { title, company, location, salary, description, email } = form;
               className="w-full px-4 py-2 rounded bg-white text-black"
             />
           </div>
+
+          <div>
+            <label className="block mb-1 text-sm font-medium">Category *</label>
+            <select
+              name="category"
+              value={form.category}
+              onChange={handleChange}
+              required
+              className="w-full px-4 py-2 rounded bg-white text-black"
+            >
+              <option value="">Select a category</option>
+              <option value="IT">IT</option>
+              <option value="Marketing">Marketing</option>
+              <option value="Finance">Finance</option>
+              <option value="Education">Education</option>
+              <option value="Healthcare">Healthcare</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+
 
           <button
             type="submit"

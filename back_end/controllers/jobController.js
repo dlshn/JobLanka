@@ -13,7 +13,7 @@ export const getJobs = async (req, res) => {
 
 // Create a new job 
 export const createJob = async (req, res) => {
-  const { title, company, location, salary, description, email, img_url } = req.body;
+  const { title, company, location, salary, description, email, img_url,category } = req.body;
 
   if (!title || !description || !company  || !img_url) {
     return res.status(400).json({ message: "Job title, Description , company and image are required" });
@@ -27,7 +27,8 @@ export const createJob = async (req, res) => {
       salary,
       description,
       email,
-      img_url, // This is the Cloudinary URL you get from the frontend
+      img_url,
+      category // This is the Cloudinary URL you get from the frontend
     });
 
     const savedJob = await newJob.save();

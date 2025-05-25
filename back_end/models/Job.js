@@ -18,7 +18,12 @@ const jobSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  category: {
+    type: String,
+    enum: ["IT","Marketing","Finance", "Education", "Healthcare", "Other", "", ""],
+    required: true, 
+  },
 });
 
-export default mongoose.model("Job", jobSchema);
+export default mongoose.model("Job", jobSchema); 
 
