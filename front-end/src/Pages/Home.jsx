@@ -109,6 +109,17 @@ const Home = () => {
                 {new Date(job.createdAt).toLocaleDateString()}
               </div>
             </div>
+            
+            <div>
+              <a
+                href={job.link}
+                rel='noopener noreferrer'
+                target="_blank"
+                className="inline-block bg-yellow-400 text-white px-4 py-2 rounded-lg hover:bg-yellow-500 transition-colors duration-300"
+              >
+                Apply Now
+              </a>
+            </div>
           </div>
         </div>
     ))}

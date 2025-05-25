@@ -10,12 +10,13 @@ const AddJob = () => {
     salary: "",
     description: "",
     email: "",
-    category: ""
+    category: "",
+    link: ""
   });
 const [imageFile, setImageFile] = useState(null);
 const [isLoading, setIsLoading] = useState(false);
 
-const { title, company, location, salary, description, email, category } = form;
+const { title, company, location, salary, description, email, category,link } = form;
 const navigate = useNavigate();
 
   const handleImageChange = (e) => {
@@ -52,7 +53,8 @@ const navigate = useNavigate();
       description,
       email,
       category, // <- Add this line
-      img_url: imageUrl
+      img_url: imageUrl,
+      link
     });
 
     console.log(response.data);
@@ -65,10 +67,11 @@ const navigate = useNavigate();
       salary: "",
       description: "",
       email: "",
-      category: "" // Reset the form
+      category: "",
+      link: "" // Reset the form
     });
     setImageFile(null);
-    navigate("/"); 
+    navigate("/");
 
     }catch (error) {
       console.error("Error uploading image or creating job:", error);
@@ -197,6 +200,18 @@ const navigate = useNavigate();
               <option value="Other">Other</option>
             </select>
           </div>
+          <div>
+            <label className="block mb-1 text-sm font-medium">External Job Link</label>
+            <input
+              type="url"
+              name="link"
+              value={form.link}
+              onChange={handleChange}
+              className="w-full px-4 py-2 rounded bg-white text-black"
+              placeholder="https://company.com/job/software-engineer"
+            />
+          </div>
+
 
 
           <button

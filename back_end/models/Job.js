@@ -23,6 +23,10 @@ const jobSchema = new mongoose.Schema({
     enum: ["IT","Marketing","Finance", "Education", "Healthcare", "Other", "", ""],
     required: true, 
   },
+  link: {
+    type: String,
+    required: false,
+  },
 });
 
 export default mongoose.model("Job", jobSchema); 
