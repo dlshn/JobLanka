@@ -5,6 +5,7 @@ import Contact from "./Pages/Contact";
 import Navbar from "./Components/Navbar";
 import Footer from "./Components/Footer";
 import AddJob from "./Pages/AddJob";
+import Login from "./Pages/Login";
 
 
 function App() {
@@ -17,6 +18,8 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/addjob" element={<AddJob />} />
+        <Route path="/login" element={<Login />} />
+
       </Routes>
       <Footer/>
     </Router>
