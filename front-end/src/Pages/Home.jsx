@@ -12,7 +12,7 @@ const Home = () => {
     useEffect(() => {
         const fetchJobs = async () => {
             try {
-                const response = await axios.get(`${proccess.env.Back_End_Url}/api/jobs/getAll`);
+                const response = await axios.get(`${proccess.env.REACT_APP_API_BASE_URL}/api/jobs/getAll`);
                 const data = await response.json();
                 setJobs(data);
             } catch (error) {

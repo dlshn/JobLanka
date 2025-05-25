@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const AddJob = () => {
   const [form, setForm] = useState({
@@ -7,18 +9,70 @@ const AddJob = () => {
     location: "",
     salary: "",
     description: "",
-    email: "",
+    email: ""
   });
+
+const [imageFile, setImageFile] = useState(null);
+const [isLoading, setIsLoading] = useState(false);
+const { title, company, location, salary, description, email } = form;
+
+  const handleImageChange = (e) => {
+    setImageFile(e.target.files[0]); // Just store file, don't upload yet 
+  };
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e)  => {
     e.preventDefault();
     console.log(form);
-    // Add your POST API call here
-  };
+        // Add your POST API call here
+    try{
+    setIsLoading(true);
+    const formData = new FormData();
+    formData.append("image", imageFile);
+
+    const uploadRes = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/api/jobs/upload`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+
+    const imageUrl = uploadRes.data.imageUrl;
+    
+ 
+    const response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/api/jobs/create`, {
+      title,
+      company,
+      location,
+      salary,
+      description,
+      email,
+      img_url:imageUrl // Use the uploaded image URL
+    
+    });
+
+    }catch (error) {
+      console.error("Error uploading image or creating job:", error);
+      alert("Failed to upload image or create job. Please try again."); 
+
+    }finally {
+      setIsLoading(false);
+      setImageFile(); // Reset the image file after submission 
+      setForm({
+        title: "",
+        company: "",
+        location: "",
+        salary: "",
+        description: "",
+        email: ""
+      });
+    }
+
+  }
+    
+
 
   return (
     <div className="min-h-screen bg-white px-6 py-10 md:px-20">
@@ -110,20 +164,18 @@ const AddJob = () => {
             <input
               type="file"
               name="Image"
-              onChange={handleChange}
+              
+              onChange={handleImageChange}
               required
               className="w-full px-4 py-2 rounded bg-white text-black"
-              placeholder="hr@company.com"
             />
           </div>
-
-
 
           <button
             type="submit"
             className="bg-yellow-400 text-black font-semibold py-2 rounded hover:bg-yellow-300 transition"
           >
-            Post Job
+            {isLoading?"Job Uploading...":"Post Job"}
           </button>
         </form>
       </div>
