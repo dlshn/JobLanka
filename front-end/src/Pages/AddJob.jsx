@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import axios from "axios";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const AddJob = () => {
   const [form, setForm] = useState({
@@ -8,17 +10,80 @@ const AddJob = () => {
     salary: "",
     description: "",
     email: "",
+    category: "",
+    link: ""
   });
+const [imageFile, setImageFile] = useState(null);
+const [isLoading, setIsLoading] = useState(false);
+
+const { title, company, location, salary, description, email, category,link } = form;
+const navigate = useNavigate();
+
+  const handleImageChange = (e) => {
+    setImageFile(e.target.files[0]); // Just store file, don't upload yet 
+  };
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e)  => {
     e.preventDefault();
-    console.log(form);
     // Add your POST API call here
-  };
+    try{
+    setIsLoading(true);
+
+    const formData = new FormData();
+    formData.append("image", imageFile);
+
+    const uploadRes = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/api/jobs/upload`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+
+    const imageUrl = uploadRes.data.imageUrl;
+    
+ 
+    const response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/api/jobs/create`, {
+      title,
+      company,
+      location,
+      salary,
+      description,
+      email,
+      category, // <- Add this line
+      img_url: imageUrl,
+      link
+    });
+
+    console.log(response.data);
+    alert("Job posted successfully!");
+    Navigate("/"); // Redirect to home page after successful job posting
+    setForm({
+      title: "",
+      company: "",
+      location: "",
+      salary: "",
+      description: "",
+      email: "",
+      category: "",
+      link: "" // Reset the form
+    });
+    setImageFile(null);
+    navigate("/");
+
+    }catch (error) {
+      console.error("Error uploading image or creating job:", error);
+      alert("Failed to upload image or create job. Please try again."); 
+
+    }finally {
+      setIsLoading(false);
+    }
+
+  }
+    
+
 
   return (
     <div className="min-h-screen bg-white px-6 py-10 md:px-20">
@@ -110,10 +175,40 @@ const AddJob = () => {
             <input
               type="file"
               name="Image"
+              
+              onChange={handleImageChange}
+              required
+              className="w-full px-4 py-2 rounded bg-white text-black"
+            />
+          </div>
+
+          <div>
+            <label className="block mb-1 text-sm font-medium">Category *</label>
+            <select
+              name="category"
+              value={form.category}
               onChange={handleChange}
               required
               className="w-full px-4 py-2 rounded bg-white text-black"
-              placeholder="hr@company.com"
+            >
+              <option value="">Select a category</option>
+              <option value="IT">IT</option>
+              <option value="Marketing">Marketing</option>
+              <option value="Finance">Finance</option>
+              <option value="Education">Education</option>
+              <option value="Healthcare">Healthcare</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <div>
+            <label className="block mb-1 text-sm font-medium">External Job Link</label>
+            <input
+              type="url"
+              name="link"
+              value={form.link}
+              onChange={handleChange}
+              className="w-full px-4 py-2 rounded bg-white text-black"
+              placeholder="https://company.com/job/software-engineer"
             />
           </div>
 
@@ -123,7 +218,7 @@ const AddJob = () => {
             type="submit"
             className="bg-yellow-400 text-black font-semibold py-2 rounded hover:bg-yellow-300 transition"
           >
-            Post Job
+            {isLoading?"Job Uploading...":"Post Job"}
           </button>
         </form>
       </div>
