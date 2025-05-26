@@ -1,4 +1,8 @@
 import React, { useState } from "react";
+import emailjs from 'emailjs-com';
+
+
+
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -8,6 +12,8 @@ const Contact = () => {
     message: ''
   });
 
+  const { name, email, subject, message } = formData;
+
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -15,15 +21,33 @@ const Contact = () => {
     });
   };
 
-  const handleSubmit = () => {
-    // Handle form submission here
-    if (formData.name && formData.email && formData.subject && formData.message) {
-      alert('Thank you for your message! We\'ll get back to you soon.');
-      setFormData({ name: '', email: '', subject: '', message: '' });
+  const handleSubmit = (e) => {
+  e.preventDefault();
+
+
+  if (formData.name && formData.email && formData.subject && formData.message) {
+      emailjs.send(
+        process.env.REACT_APP_EMAIL_SERVICE_ID,    // Replace with your service ID
+        process.env.REACT_APP_EMAIL_TEMPLATE_ID,   // Replace with your template ID
+        formData,
+        process.env.REACT_APP_EMAIL_USER_ID    // Replace with your EmailJS Public Key 
+      ).then(
+        (response) => {
+          alert('Thank you! Your message has been sent.');
+          setFormData({ name: '', email: '', subject: '', message: '' });
+        },
+        (error) => {
+          alert('Oops! Something went wrong. Please try again.');
+          console.error(error);
+        }
+      );
+      console.log("SERVICE_ID:", process.env.EMAIL_SERVICE_ID);
+      
     } else {
       alert('Please fill in all required fields.');
     }
   };
+
 
   return (
     <div className="min-h-screen bg-gray-50 py-12 px-6">
