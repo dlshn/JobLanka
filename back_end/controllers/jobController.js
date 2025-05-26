@@ -3,7 +3,7 @@ import Job from "../models/Job.js";
 // Get all jobs
 export const getJobs = async (req, res) => {
   try {
-    const jobs = await Job.find().sort({ createdAt: -1 }); // Optional: sort by newest first 
+    const jobs = await Job.find().sort({ createdAt: -1 }); // Optional: sort by newest first
     res.status(200).json(jobs);
   } catch (error) {
     console.error("Error fetching jobs:", error);
