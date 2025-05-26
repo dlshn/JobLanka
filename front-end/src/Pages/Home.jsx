@@ -53,7 +53,7 @@ const Home = () => {
           <select
             value={category}
             onChange={(e) => setCategory(e.target.value)}
-            className="w-full lg:w-1/2 px-4 py-2 border rounded-lg shadow-sm focus:outline-none text-black"
+            className="w-full lg:w-1/2 px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-yellow-400 text-black bg-white appearance-none transition duration-300 ease-in-out"
           >
             <option value="">Select a category</option>
             <option value="IT">IT</option>
@@ -96,7 +96,7 @@ const Home = () => {
                   <p className="text-gray-700 text-sm">{job.location}</p>
                 </div>
                 <div className="flex items-center justify-between pt-3 border-t border-gray-200">
-                  <span className="text-lg font-bold text-yellow-600">
+                  salary:<span className="text-md font-bold text-yellow-600">
                     {job.salary ? `LKR ${job.salary}` : "Negotiable"}
                   </span>
                   <div className="text-xs text-gray-500 bg-gray-100 px-3 py-1 rounded-full">
