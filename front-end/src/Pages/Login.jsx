@@ -24,6 +24,8 @@ const AdminLogin = () => {
       localStorage.setItem("adminToken", res.data.token);
 
       // Redirect to create job page after login
+      setEmail("");
+      setPassword("");
       navigate("/addJob");
     } catch (err) {
       setError(err.response?.data?.message || "Login failed");
