@@ -24,7 +24,7 @@ const Navbar = () => {
         {/* Login / Signup */}
         <div className="hidden md:flex space-x-4">
           <Link to="/login" className="bg-black text-yellow-400 px-4 py-1 rounded hover:bg-gray-800">
-            Login
+            Admin Login
           </Link>
         </div>
 
@@ -70,7 +70,7 @@ const Navbar = () => {
                 className="bg-black text-yellow-400 px-4 py-2 rounded hover:bg-gray-800 transition-all duration-200 hover:shadow-md" 
                 onClick={() => setIsOpen(false)}
               >
-                Login
+                Admin Login
               </Link>
             </div>
           </div>
