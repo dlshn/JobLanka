@@ -6,7 +6,7 @@ JobLanka is a full-stack job portal web application built with the MERN stack (M
 
 ## 🔗 Live Website
 
-👉 [Visit JobLanka on Vercel](https://your-vercel-app-url.vercel.app)
+👉 [Visit JobLanka on Vercel](https://job-lanka.vercel.app/)
 
 ---
 
