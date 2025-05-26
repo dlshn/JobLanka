@@ -82,7 +82,7 @@ const About = () => {
                         className="inline-flex items-center space-x-2 bg-yellow-400 text-black px-6 py-3 rounded-full font-semibold hover:bg-yellow-300 transition-all duration-300 hover:shadow-lg hover:shadow-yellow-400/30 transform hover:scale-105"
                       >
                         <span>📧</span>
-                        <span>support@joblanka.lk</span>
+                        <span>dlshngamage917@gmail.com</span>
                       </a>
                     </div>
                   )}

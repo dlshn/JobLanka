@@ -151,8 +151,7 @@ const Contact = () => {
                   </div>
                   <div>
                     <h3 className="font-semibold text-black">Email</h3>
-                    <p className="text-gray-600">support@joblanka.lk</p>
-                    <p className="text-gray-600">info@joblanka.lk</p>
+                    <p className="text-gray-600">dlshngamage917@gmail.com</p>
                   </div>
                 </div>
 
@@ -162,8 +161,8 @@ const Contact = () => {
                   </div>
                   <div>
                     <h3 className="font-semibold text-black">Phone</h3>
-                    <p className="text-gray-600">+94 11 234 5678</p>
-                    <p className="text-gray-600">+94 77 123 4567</p>
+                    <p className="text-gray-600">+94 705570433</p>
+                    <p className="text-gray-600">+94 787121717</p>
                   </div>
                 </div>
 
@@ -174,7 +173,6 @@ const Contact = () => {
                   <div>
                     <h3 className="font-semibold text-black">Address</h3>
                     <p className="text-gray-600">
-                      123 Business District<br />
                       Colombo 03, Sri Lanka
                     </p>
                   </div>
