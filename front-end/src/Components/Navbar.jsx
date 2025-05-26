@@ -2,14 +2,17 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import logo from "../assets/logo.png"; 
+
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
   return (
-    <nav className="bg-yellow-400 text-black shadow-md">
+    <nav className="bg-yellow-400 text-black shadow-md md:px-4">
       <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
         {/* Logo */}
-        <Link to="/" className="text-2xl font-bold">
+        <Link to="/" className="text-2xl font-bold flex gap-2 items-center">
+        <img src={logo} alt="JobLanka Logo" className="h-10 w-auto rounded-full shadow-lg hover:shadow-5xl" />
           JobLanka
         </Link>
 
