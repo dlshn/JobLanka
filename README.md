@@ -57,6 +57,3 @@ The "Contact Us" form in the frontend is connected to [EmailJS](https://www.emai
 
 ---
 
-## 📌 License
-
-This project is for learning and demonstration purposes.
