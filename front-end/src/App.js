@@ -6,7 +6,7 @@ import Navbar from "./Components/Navbar";
 import Footer from "./Components/Footer";
 import AddJob from "./Pages/AddJob";
 import Login from "./Pages/Login";
-import ScrollToTop from "./Components/ScrollToTop";
+import ScrollToTop from "./Components/ScrollToTop"; 
 
 
 function App() {
