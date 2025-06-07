@@ -28,7 +28,9 @@ const AdminLogin = () => {
       // Redirect to create job page after login
       setEmail("");
       setPassword("");
-      navigate("/addJob");
+      navigate("/");
+      window.location.reload();
+      
     } catch (err) {
       setError(err.response?.data?.message || "Login failed");
     } finally {

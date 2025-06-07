@@ -59,7 +59,6 @@ const navigate = useNavigate();
 
     console.log(response.data);
     alert("Job posted successfully!");
-    Navigate("/"); // Redirect to home page after successful job posting
     setForm({
       title: "",
       company: "",
