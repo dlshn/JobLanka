@@ -166,7 +166,7 @@ const Home = () => {
                     {job.salary ? `LKR ${job.salary}` : "Negotiable"}
                     </span>
                   </div>
-                  <div className="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded-full mx-8">
+                  <div className="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded-full mx-4">
                     {new Date(job.createdAt).toLocaleDateString()}
                   </div>
                 </div>

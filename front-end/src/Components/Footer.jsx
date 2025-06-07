@@ -44,7 +44,7 @@ const Footer = () => {
                 Home
               </Link>
               <Link 
-                to="/jobs" 
+                to="/" 
                 className="text-gray-300 hover:text-yellow-400 transition-all duration-300 hover:translate-x-1 transform text-sm font-medium border-l-2 border-transparent hover:border-yellow-400 pl-3"
               >
                 Jobs
