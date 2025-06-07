@@ -7,6 +7,8 @@ const AdminLogin = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  
+
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -21,7 +23,7 @@ const AdminLogin = () => {
       });
 
       // Save JWT token in localStorage
-      localStorage.setItem("adminToken", res.data.token);
+      localStorage.setItem("token", res.data.token);
 
       // Redirect to create job page after login
       setEmail("");

@@ -7,11 +7,12 @@ import Footer from "./Components/Footer";
 import AddJob from "./Pages/AddJob";
 import Login from "./Pages/Login";
 import ScrollToTop from "./Components/ScrollToTop"; 
+import { AuthProvider } from "./Components/context/AuthContext"; // ✅ Import this
 
 
 function App() {
   return (
-    
+    <AuthProvider>
     <Router>
       <Navbar/>
       <ScrollToTop />
@@ -25,6 +26,7 @@ function App() {
       </Routes>
       <Footer/>
     </Router>
+    </AuthProvider>
   );
 }
 

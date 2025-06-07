@@ -2,13 +2,39 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
+
 const Home = () => {
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("");
   const [jobs, setJobs] = useState([]);
-  const [visibleJobs, setVisibleJobs] = useState(9); // NEW
+  const [visibleJobs, setVisibleJobs] = useState(8); // NEW
+  const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
+    const verifyToken = async () => {
+  const token = localStorage.getItem("token");
+
+  try {
+    const response = await axios.post(
+          `${process.env.REACT_APP_API_BASE_URL}/api/admin/verifyToken`,
+          {}, // No body needed
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        if (response.data.isAdmin) {
+          setIsAdmin(true);
+        }
+      } catch (error) {
+        console.error("Token verification failed:", error);
+      }
+    };
+
+
+    verifyToken();
+    
     const fetchJobs = async () => {
       try {
         const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/jobs/getAll`);
@@ -31,12 +57,48 @@ const Home = () => {
   });
 
   const handleSeeMore = () => {
-    setVisibleJobs((prev) => prev + 6); // Show 6 more each time
+      setVisibleJobs((prev) => prev + 6); // Show 6 more each time
+    };
+
+   const handleDelete = async (jobId) => {
+    try {
+      const token = localStorage.getItem("token"); // Or wherever you're storing the token
+
+      await axios.delete(
+        `${process.env.REACT_APP_API_BASE_URL}/api/jobs/delete/${jobId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      setJobs((prevJobs) => prevJobs.filter((job) => job._id !== jobId));
+    } catch (error) {
+      console.error("Delete failed:", error);
+    }
   };
+
+
 
   return (
     <div className="min-h-screen bg-white">
       <header className="bg-yellow-400 text-white py-6 shadow mt-2">
+        {isAdmin && (
+  <div className="flex justify-end px-6 pt-4">
+    <button
+      onClick={() => {
+        localStorage.removeItem("token");
+        setIsAdmin(false);
+        window.location.reload(); // or navigate to login page if you have one
+      }}
+      className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition"
+    >
+      Logout
+    </button>
+  </div>
+)}
+
         <h1 className="text-2xl md:text-4xl lg:text-6xl font-bold text-black text-center">JobLanka</h1>
         <p className="text-center mt-1 text-black text-base md:text-xl lg:text-2xl ">
           Find your dream job in Sri Lanka 🇱🇰
@@ -67,7 +129,7 @@ const Home = () => {
       </header>
 
       <main className="p-4">
-        <div className="max-w-6xl mx-auto grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+        <div className="max-w-6xl mx-auto grid gap-6 grid-cols-1 md:grid-cols-3 lg:grid-cols-4">
           {filteredJobs.slice(0, visibleJobs).map((job, index) => (
             <div
               className="bg-gradient-to-br from-white to-gray-50 border-2 border-transparent hover:border-yellow-400 p-6 rounded-2xl shadow-lg hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 ease-in-out group cursor-pointer"
@@ -95,24 +157,34 @@ const Home = () => {
                   <div className="w-2 h-2 bg-black rounded-full"></div>
                   <p className="text-gray-700 text-sm">{job.location}</p>
                 </div>
-                <div className="flex items-center justify-between pt-3 border-t border-gray-200">
-                  salary:<span className="text-md font-bold text-yellow-600">
+                <div className="flex items-center pt-3 border-t border-gray-200 gap-0">
+                  <b>Salary</b>:{"_"}<span className="text-md font-bold text-yellow-600 ">
                     {job.salary ? `LKR ${job.salary}` : "Negotiable"}
                   </span>
-                  <div className="text-xs text-gray-500 bg-gray-100 px-3 py-1 rounded-full">
+                  <div className="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded-full mx-8">
                     {new Date(job.createdAt).toLocaleDateString()}
                   </div>
                 </div>
-                <div>
+                <div className="flex items-center justify-between gap-4 mt-2">
                   <a
                     href={job.link}
-                    rel='noopener noreferrer'
+                    rel="noopener noreferrer"
                     target="_blank"
                     className="inline-block bg-yellow-400 text-white px-4 py-2 rounded-lg hover:bg-yellow-500 transition-colors duration-300"
                   >
-                    Apply Now
+                    More
                   </a>
+
+                  {isAdmin && (  //*****Admin Role*****//
+                    <button
+                      onClick={() => handleDelete(job._id)}
+                      className="inline-block bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition-colors duration-300"
+                    >
+                      Delete
+                    </button>
+                  )}
                 </div>
+
               </div>
             </div>
           ))}

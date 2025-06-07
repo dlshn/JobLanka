@@ -3,9 +3,9 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const ADMIN_EMAIL = process.env.ADMIN_EMAIL 
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD; // Change or use env vars! 
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD; // Change or use env vars!  
 
-export const adminLogin = (req, res) => {
+export const adminLogin = (req, res) => { 
   const { email, password } = req.body;
 
   if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
@@ -16,20 +16,34 @@ export const adminLogin = (req, res) => {
   }
 };
 
-export const verifyAdmin = (req, res, next) => {
+export const verifyAdmin = (req, res) => {
   const authHeader = req.headers.authorization;
 
-  if (!authHeader) return res.status(401).json({ message: "No token provided" });
+  if (!authHeader) {
+    return res.status(401).json({ message: "No token provided" });
+  }
 
-  const token = authHeader.split(" ")[1]; // Bearer <token>
+  const token = authHeader.split(" ")[1]; // Bearer <token> 
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    if (decoded.role !== "admin") return res.status(403).json({ message: "Access denied" });
 
-    req.user = decoded;
-    next();
+    if (decoded.role !== "admin") {
+      return res.status(403).json({
+        message: "Access denied",
+        isAdmin: false,
+      });
+    }
+
+    // Token is valid and user is admin — send success response:
+    return res.json({
+      message: "Token valid",
+      isAdmin: true,
+      email: decoded.email,
+    });
+
   } catch (error) {
     return res.status(401).json({ message: "Invalid token" });
   }
 };
+
