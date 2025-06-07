@@ -9,6 +9,9 @@ const Home = () => {
   const [jobs, setJobs] = useState([]);
   const [visibleJobs, setVisibleJobs] = useState(8); // NEW
   const [isAdmin, setIsAdmin] = useState(false);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [selectedJobId, setSelectedJobId] = useState(null);
+
 
   useEffect(() => {
     const verifyToken = async () => {
@@ -85,19 +88,19 @@ const Home = () => {
     <div className="min-h-screen bg-white">
       <header className="bg-yellow-400 text-white py-6 shadow mt-2">
         {isAdmin && (
-  <div className="flex justify-end px-6 pt-4">
-    <button
-      onClick={() => {
-        localStorage.removeItem("token");
-        setIsAdmin(false);
-        window.location.reload(); // or navigate to login page if you have one
-      }}
-      className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition"
-    >
-      Logout
-    </button>
-  </div>
-)}
+          <div className="flex justify-end px-6 pt-4">
+            <button
+              onClick={() => {
+                localStorage.removeItem("token");
+                setIsAdmin(false);
+                window.location.reload(); // or navigate to login page if you have one
+              }}
+              className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition"
+            >
+              Logout
+            </button>
+          </div>
+        )}
 
         <h1 className="text-2xl md:text-4xl lg:text-6xl font-bold text-black text-center">JobLanka</h1>
         <p className="text-center mt-1 text-black text-base md:text-xl lg:text-2xl ">
@@ -155,12 +158,14 @@ const Home = () => {
                 </div>
                 <div className="flex items-center space-x-2">
                   <div className="w-2 h-2 bg-black rounded-full"></div>
-                  <p className="text-gray-700 text-sm">{job.location}</p>
+                  <p className="text-gray-700 text-sm">{job.location?`${job.location}`:"Not location mentioned."}</p>
                 </div>
-                <div className="flex items-center pt-3 border-t border-gray-200 gap-0">
-                  <b>Salary</b>:{"_"}<span className="text-md font-bold text-yellow-600 ">
+                <div className="flex items-center justify-between pt-3 border-t border-gray-200 gap-0">
+                  <div className="flex items-center border pr-6 w-auto">
+                    <b>Salary</b>:{""}<span className="text-xs font-bold text-yellow-600 border w-max">
                     {job.salary ? `LKR ${job.salary}` : "Negotiable"}
-                  </span>
+                    </span>
+                  </div>
                   <div className="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded-full mx-8">
                     {new Date(job.createdAt).toLocaleDateString()}
                   </div>
@@ -175,14 +180,18 @@ const Home = () => {
                     More
                   </a>
 
-                  {isAdmin && (  //*****Admin Role*****//
+                  {isAdmin && (
                     <button
-                      onClick={() => handleDelete(job._id)}
+                      onClick={() => {
+                        setSelectedJobId(job._id);
+                        setShowConfirmModal(true);
+                      }}
                       className="inline-block bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition-colors duration-300"
                     >
                       Delete
                     </button>
                   )}
+
                 </div>
 
               </div>
@@ -202,7 +211,37 @@ const Home = () => {
           </div>
         )}
       </main>
+      {showConfirmModal && (
+  <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+    <div className="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full text-center">
+      <h2 className="text-lg font-semibold mb-4">Are you sure you want to delete this job?</h2>
+      <div className="flex justify-center gap-4">
+        <button
+          onClick={() => {
+            handleDelete(selectedJobId);
+            setShowConfirmModal(false);
+          }}
+          className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition"
+        >
+          Yes, Delete
+        </button>
+        <button
+          onClick={() => {
+            setSelectedJobId(null);
+            setShowConfirmModal(false);
+          }}
+          className="bg-gray-300 text-black px-4 py-2 rounded hover:bg-gray-400 transition"
+        >
+          Cancel
+        </button>
+      </div>
     </div>
+  </div>
+)}
+
+    </div>
+
+    
   );
 };
 

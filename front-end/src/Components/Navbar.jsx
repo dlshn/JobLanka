@@ -16,10 +16,14 @@ const Navbar = () => {
         </Link>
 
         <div className="hidden md:flex space-x-6 font-bold">
+          
           <Link to="/" className="hover:underline">Home</Link>
-          <Link to="/" className="hover:underline">Jobs</Link>
-          <Link to="/about" className="hover:underline">About</Link>
-          <Link to="/contact" className="hover:underline">Contact</Link>
+          {!isAdmin &&(
+            <Link to="/about" className="hover:underline">About</Link>
+          )}
+          {!isAdmin &&(
+            <Link to="/contact" className="hover:underline">Contact</Link>
+          )}
           {isAdmin && (
             <Link to="/addjob" className="text-red-700 font-semibold hover:underline">
               Create Job
@@ -27,11 +31,13 @@ const Navbar = () => {
           )}
         </div>
 
-        <div className="hidden md:flex space-x-4">
+        {!isAdmin &&(
+          <div className="hidden md:flex space-x-4">
           <Link to="/login" className="bg-black text-yellow-400 px-4 py-1 rounded hover:bg-gray-800">
             Admin Login
           </Link>
         </div>
+        )}
 
         <div className="md:hidden">
           <button className="text-black focus:outline-none" onClick={() => setIsOpen(!isOpen)}>☰</button>
@@ -40,19 +46,27 @@ const Navbar = () => {
         {isOpen && (
           <div className="absolute top-16 left-0 w-full bg-yellow-400 shadow-lg z-50 border-t border-black/10">
             <div className="flex flex-col items-center space-y-4 p-4 font-bold">
-              <Link to="/" onClick={() => setIsOpen(false)} className="hover:underline">Home</Link>
-              <Link to="/" onClick={() => setIsOpen(false)} className="hover:underline">Jobs</Link>
-              <Link to="/about" onClick={() => setIsOpen(false)} className="hover:underline">About</Link>
-              <Link to="/contact" onClick={() => setIsOpen(false)} className="hover:underline">Contact</Link>
+              
+
+                <Link to="/" onClick={() => setIsOpen(false)} className="hover:underline">Home</Link>
+              {!isAdmin &&(
+                <Link to="/about" onClick={() => setIsOpen(false)} className="hover:underline">About</Link>
+              )}    
+              
+              {!isAdmin && (   
+                <Link to="/contact" onClick={() => setIsOpen(false)} className="hover:underline">Contact</Link>
+              )}
               {isAdmin && (
                 <Link to="/addjob" onClick={() => setIsOpen(false)} className="text-red-700 font-semibold hover:underline">
                   Create Job
                 </Link>
               )}
               <hr className="border-t border-black/20 w-full" />
-              <Link to="/login" onClick={() => setIsOpen(false)} className="bg-black text-yellow-400 px-4 py-2 rounded hover:bg-gray-800">
+              {!isAdmin && (
+                <Link to="/login" onClick={() => setIsOpen(false)} className="bg-black text-yellow-400 px-4 py-2 rounded hover:bg-gray-800">
                 Admin Login
               </Link>
+              )}
             </div>
           </div>
         )}
