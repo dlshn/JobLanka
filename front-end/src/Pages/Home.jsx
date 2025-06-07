@@ -151,7 +151,7 @@ const Home = () => {
                 <h2 className="text-xl font-bold text-gray-900 group-hover:text-yellow-600 transition-colors duration-300 line-clamp-2">
                   {job.title}
                 </h2>
-                <p className="text-gray-700 text-sm leading-relaxed line-clamp-3">{job.description}</p>
+                <p className="text-gray-700 text-sm leading-relaxed line-clamp-3 font-serif">{job.description}</p>
                 <div className="flex items-center space-x-2">
                   <div className="w-2 h-2 bg-yellow-400 rounded-full"></div>
                   <p className="text-gray-800 font-medium text-sm">{job.company}</p>
@@ -161,8 +161,8 @@ const Home = () => {
                   <p className="text-gray-700 text-sm">{job.location?`${job.location}`:"Not location mentioned."}</p>
                 </div>
                 <div className="flex items-center justify-between pt-3 border-t border-gray-200 gap-0">
-                  <div className="flex items-center border pr-6 w-auto">
-                    <b>Salary</b>:{""}<span className="text-xs font-bold text-yellow-600 border w-max">
+                  <div className="flex items-center pr-6 w-auto">
+                    <b>Salary</b>:{""}<span className="text-sm font-bold text-yellow-600  w-max">
                     {job.salary ? `LKR ${job.salary}` : "Negotiable"}
                     </span>
                   </div>
@@ -175,7 +175,7 @@ const Home = () => {
                     href={job.link}
                     rel="noopener noreferrer"
                     target="_blank"
-                    className="inline-block bg-yellow-400 text-white px-4 py-2 rounded-lg hover:bg-yellow-500 transition-colors duration-300"
+                    className="inline-block bg-yellow-400 text-white px-4 py-1 rounded-lg hover:bg-yellow-500 transition-colors duration-300"
                   >
                     More
                   </a>
