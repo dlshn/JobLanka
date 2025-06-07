@@ -52,7 +52,6 @@ const Navbar = () => {
               {!isAdmin &&(
                 <Link to="/about" onClick={() => setIsOpen(false)} className="hover:underline">About</Link>
               )}    
-              
               {!isAdmin && (   
                 <Link to="/contact" onClick={() => setIsOpen(false)} className="hover:underline">Contact</Link>
               )}

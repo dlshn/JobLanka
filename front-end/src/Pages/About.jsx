@@ -1,4 +1,5 @@
 import React from "react";
+import {Link} from "react-router-dom";
 
 const About = () => {
   return (
@@ -12,8 +13,9 @@ const About = () => {
           </h1>
           <div className="w-24 h-1 bg-yellow-400 mx-auto mb-8 rounded-full"></div>
           <p className="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed relative z-10">
-            JobLanka is a modern platform connecting job seekers with top employers across Sri Lanka. 
-            Our mission is to make job hunting simple, transparent, and accessible to everyone.
+            JobLanka is a modern platform that helps people find jobs from top companies in Sri Lanka.
+Our goal is to make job searching easy, clear, and open to everyone.
+We also share trusted job posts from sites like Facebook and LinkedIn, with links to the original ads.
           </p>
         </div>
 
@@ -21,8 +23,8 @@ const About = () => {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-20">
           {[
             { number: "10K+", label: "Active Jobs" },
-            { number: "5K+", label: "Companies" },
-            { number: "50K+", label: "Job Seekers" },
+            { number: "5K", label: "Companies" },
+            { number: "15K+", label: "Job Seekers" },
             { number: "95%", label: "Success Rate" }
           ].map((stat, index) => (
             <div key={index} className="text-center group">
@@ -103,12 +105,12 @@ const About = () => {
               Join thousands of professionals who have found their dream jobs through JobLanka
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="bg-black text-yellow-400 px-8 py-4 rounded-full font-semibold hover:bg-gray-900 transition-all duration-300 hover:shadow-lg transform hover:scale-105">
+              <Link to="/" className="bg-black text-yellow-400 px-8 py-4 rounded-full font-semibold hover:bg-gray-900 transition-all duration-300 hover:shadow-lg transform hover:scale-105">
                 Find Jobs
-              </button>
-              <button className="border-2 border-black text-black px-8 py-4 rounded-full font-semibold hover:bg-black hover:text-yellow-400 transition-all duration-300 transform hover:scale-105">
-                Post a Job
-              </button>
+              </Link>
+              <Link to="/contact" className="border-2 border-black text-black px-8 py-4 rounded-full font-semibold hover:bg-black hover:text-yellow-400 transition-all duration-300 transform hover:scale-105">
+                Contact
+              </Link>
             </div>
           </div>
         </div>
